@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <!--scale to fit screen-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" content="height=device-h, initial-scale=1">
+
+    <!-- To set a style for all buttons-->
+    <style type="text/css">
+        body{
+            background-image: url("https://m.media-amazon.com/images/I/61a5iGKjl7L._AC_SL1500_.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+        </style>
+    <style>
+        button {
+            background-color: rgb(2, 0, 128);
+            font-size: 15px;
+            font-family: roman;
+            color: white;
+            padding: 8px 8px;
+            margin: 50px;
+            width: 40%;
+            border-style: solid;
+            border-width: 10px; 
+            border-color: rgb(0, 225, 255);
+            border-radius: 30px;
+            float: left;
+        }
+    </style>
+    
+    <!-- To set a style for the body-->
+    <style>
+        body {
+            margin: 50px;
+            padding: 16px 16px 300px;
+            font-size: 20px;
+            font-family: cursive;
+            color: rgb(0, 128, 122);
+            border: double;
+            border-width: 10px;
+            border-color: rgb(0, 255, 64);
+            border-radius: 20px;
+        }
+        </style>
+
+    <!-- To set the style for the tables below-->
+    <style>
+        table{
+            font-size: 20px;
+            font-family: cursive;
+            color: rgb(0, 51, 128);
+            margin: 20px;
+            width:100px; 
+            }
+    </style>
+
+    <!-- Create header-->
+    <head>
+        <h2 style = "margin: 20px"><center><b>Book An Appointment</b></center> <h2>
+    </head>       
+
+    <!-- Create text boxes for the user-->
+    <body>
+            <div id="create-update" style="display:none">
+            <h2 style = "margin:120px"><b>Add/Edit Appointment</b></h2>
+
+            <table style = "width:100%; margin:120px" id="createUpdateForm" >
+            <tr> 
+                <td>Patient PPS</td>
+                <td><input type="int" name="Patient_PPS"></td>
+            </tr>
+            <tr>
+                <td> Clinic ID</td>
+                <td><input type="text" name="Clinic_ID" id="Clinic_ID"></td>
+            </tr>
+            <tr>
+                <td>Clinic Name</td>
+                <td><input type="text" name="Clinic_Name"></td>
+            </tr>
+            <tr>
+                <td>Day</td>
+                <td><input type="text" name="Day"></td>
+            </tr>
+            <tr >    
+                <td>Time</td>
+                <td><input type="text" name="Time"></td>
+            </tr>
+            
+            <tr>
+                <td></td><td> 
+                                            
+                    <button id="update-button" onclick="doUpdate()">Update an Existing Appointment</button>
+                    <button id="create-button" onclick="doCreate()">Make a Appointment</button>--> <!--Note I did not have time to complete the functionality for this function-->
+                </td>
+            </tr>
+        </table>
+        </div>
+
+        <!--Main Menu-->
+        <div id="display">
+            
+            <button onClick="showCreate()">Create an Appointment</button>     
+            <table id="AppointmentTable" class="table" style = "width:100%; color:purple; text-align:center">
+                <tr>
+                    <th><center>Patient PPS</center></th><th><center>Clinic ID</center></th><th><center>Clinic Name</center></th><th><center>Day</center></th><th><center>Time</center></th>
+                </tr>
+                          
+            </table>
+
+            <button onclick='location.href="index.html"' type="button" >Return to browse Clinics available</button>
+            <button onclick='location.href="logout.html"' type="button" >Logout</button>
+        </div>
+
+        <script>
+            function showCreate(){
+                document.getElementById('display').style.display = "none"
+                document.getElementById('update-button').style.display = "none"
+                document.getElementById('create-button').style.display = "block"
+                document.getElementById('create-update').style.display = "block"
+            }
+
+            function showUpdate(thisElem){
+                var rowElement = thisElem.parentNode.parentNode;
+                Appointment = readAppointmentFromRow(rowElement)
+                populateForm(Appointment)
+                document.getElementById('display').style.display = "none"
+                document.getElementById('update-button').style.display = "block"
+                document.getElementById('create-button').style.display = "none"
+                document.getElementById('create-update').style.display = "block"
+            }
+
+            function readAppointmentFromRow(rowElement){
+                Appointment = {}
+                Appointment.Patient_PPS = rowElement.getAttribute("Patient_PPS");
+                Appointment.Clinic_ID = rowElement.cells[1].firstChild.textContent
+                Appointment.Clinic_Name = rowElement.cells[2].firstChild.textContent
+                Appointment.Day = rowElement.cells[3].firstChild.textContent
+                Appointment.Time = rowElement.cells[4].firstChild.textContent
+                
+                return Appointment   
+            }
+                        
+            function populateForm(Appointment){
+                var form = document.getElementById('createUpdateForm') 
+                form.querySelector('input[name="Patient_PPS"]').value = Appointment.Patient_PPS 
+                form.querySelector('input[name="Patient_PPS"]').disabled=true            
+                form.querySelector('input[name="Clinic_ID"]').value = Appointment.Clinic_ID                                
+                form.querySelector('input[name="Clinic_Name"]').value = Appointment.Clinic_Name
+                form.querySelector('input[name="Day"]').value = Appointment.Day
+                form.querySelector('input[name="Time"]').value = Appointment.Time 
+                
+                
+            }
+
+            function clearForm() {
+                    var form = document.getElementById('createUpdateForm')
+                    
+                    form.querySelector('input[name="Patient_PPS"]').value = ''
+                    form.querySelector('input[name="Patient_PPS"]').disabled = false
+                    form.querySelector('input[name="Clinic_ID"]').value = ''
+                    form.querySelector('input[name="Clinic_Name"]').value = ''
+                    form.querySelector('input[name="Day"]').value = ''
+                    form.querySelector('input[name="Time"]').value = ''
+                    
+                }
+
+            function doCreate(){
+                console.log("in doCreate")
+                Appointment= getAppointmentFromForm()
+                console.log(Appointment)
+                $.ajax({
+                    url:"/Appointment",
+                    data:JSON.stringify(Appointment),
+                    method:"POST",
+                    dataType:"JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success:function(result){
+                        console.log(result) 
+                        addAppointmentToTable(Appointment)
+                        showDisplay()
+                        clearForm()
+                    },
+                    error:function(xhr,status,error){
+                        console.log("error"+error)
+                    }
+                })
+               
+            }
+            function doUpdate(){
+                Appointment = getAppointmentFromForm()
+                updateServer(Appointment)    
+            }
+
+            function updateServer(Appointment){
+               $.ajax({
+                    url:"/Appointment/"+Appointment.Patient_PPS,
+                    data: JSON.stringify(Appointment),
+                    method: "PUT",
+                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        console.log("yes")
+                        updateTableRow(Appointment)
+                        showDisplay()
+                        clearForm()
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("error" + error)
+                    }
+                })
+            }
+
+            function doDelete(thisElem){
+                console.log("working so far")
+                var tableElement = document.getElementById('AppointmentTable');
+                var rowElement = thisElem.parentNode.parentNode;
+                var index = rowElement.rowIndex;
+                Patient_PPS = rowElement.getAttribute("Patient_PPS");
+                $.ajax({
+                    url:"/Appointment/"+Patient_PPS,
+                    method:"DELETE",
+                    dateType:"JSON",
+                    success:function(result){
+                        tableElement.deleteRow(index);
+                    console.log("Success")
+                    },
+                    error:function(xhr,status,error){
+                        console.log(error)
+                    }
+                })
+            }
+            
+            function updateTableRow(Appointment){
+                rowElement = document.getElementById(Appointment.Patient_PPS)
+                rowElement.cells[1].firstChild.textContent = Appointment.Clinic_ID
+                rowElement.cells[2].firstChild.textContent = Appointment.Clinic_Name
+                rowElement.cells[3].firstChild.textContent = Appointment.Day
+                rowElement.cells[4].firstChild.textContent = Appointment.Time
+                
+                console.log("updating table")
+            }
+
+            function getAppointmentFromForm(){
+                var form = document.getElementById('createUpdateForm')
+
+                var Appointment = {}
+                Appointment.Patient_PPS = form.querySelector('input[name="Patient_PPS"]').value
+                Appointment.Clinic_ID = form.querySelector('input[name="Clinic_ID"]').value
+                Appointment.Clinic_Name = form.querySelector('input[name="Clinic_Name"]').value
+                Appointment.Day = form.querySelector('input[name="Day"]').value
+                Appointment.Time = form.querySelector('input[name="Time"]').value
+                
+                console.log(Appointment)
+                return Appointment
+            }
+
+             function showDisplay() {
+                    document.getElementById('display').style.display = "block"
+                    document.getElementById('create-update').style.display = "none"
+                }
+
+            function populateTable(){
+                $.ajax({
+                   url:'http://127.0.0.1:5000/Appointment',
+                   method:'GET',
+                   datatype:'JSON',
+                   success:function(results){
+                        for (Appointment of results){
+                             addAppointmentToTable(Appointment)
+                        }
+                   },
+                   error:function (xhr,status,error){
+                       console.log ("error "+error +" code:"+status)
+                   }
+
+               })
+               
+            }
+            function addAppointmentToTable(Appointment){
+                tableElem = document.getElementById("AppointmentTable")
+                
+                rowElem = tableElem.insertRow(-1)
+                rowElem.setAttribute("Patient_PPS", Appointment.Patient_PPS)
+                cell1 = rowElem.insertCell(0)
+                cell1.innerHTML = Appointment.Patient_PPS
+                cell2 = rowElem.insertCell(1)
+                cell2.innerHTML = Appointment.Clinic_ID
+                cell3 = rowElem.insertCell(2)
+                cell3.innerHTML = Appointment.Clinic_Name
+                cell4 = rowElem.insertCell(3)
+                cell4.innerHTML = Appointment.Day
+                cell5 = rowElem.insertCell(4)
+                cell5.innerHTML = Appointment.Time
+                cell6 = rowElem.insertCell(5)
+                cell6.innerHTML = '<button style = "margin:0%; width:100%" onclick="showUpdate(this)">Edit Appointment</button>'
+                cell7 = rowElem.insertCell(6)
+                cell7.innerHTML = '<button style = "margin:0%; width:80%" onclick="doDelete(this)">Delete Appointment</button>'
+                } 
+            populateTable()
+        </script>
+    </body>
+</html>
