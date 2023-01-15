@@ -17,9 +17,7 @@ class User:
 
 users = []
 users.append(User(id=1, username='admin', password='admin'))
-users.append(User(id=3, username='Andrew', password='sinscealeile'))
-
-
+users.append(User(id=2, username='admin', password='admin'))
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
