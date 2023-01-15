@@ -6,7 +6,7 @@ Project Data Representation 2022 G00048625
 This project aims to create a web application in flask that has a restful API. It should contain a database and webpages that consume the API (perform CURD operations on the data).
 
 The link for this repository is [Github](https://github.com/katel85/Data-Representation-Project) and 
-[Pythonanywhere]https://g00048625.pythonanywhere.com/login.html
+[Pythonanywhere](https://g00048625.pythonanywhere.com/login.html)
 
 The pythonanywhere webpage will be active until 15th April 2023. Access for login is username *admin* and password *admin*.
 I have created a website for admin staff in a fictional consultant clinic in the Midlands. I created two DAO python files called appointmentDAO and clinicDAO. These are used by the server to create the RESTful API. The API is constructed in the server and calls the methods from both the DAO files. All these methods worked in the cmd enviroment using the curl commands and also using Postman. One issue I encountered was the PUT method worked in CURL and POSTMAN but when I went to see if the database had updated it did not seem to log the changes corrected. No errors where encoutered in CURL or POSTMAN and status code was 200. There is an issue here and I did not seem to catch it. Feedback would be greatly appreciated.
