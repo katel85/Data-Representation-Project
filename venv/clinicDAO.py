@@ -1,16 +1,18 @@
 import mysql.connector
 from mysql.connector import cursor
+import config as cfg
 
 class ClinicsDao:
-    db = ""
-    def __init__(self):
+    db=""
+    def __init__(self): 
         self.db = mysql.connector.connect(
-            host = 'localhost',
-            user= 'root',
-            password = 'root',
-            database ='ProjectDatabase'
+        host=       cfg.mysql['host'],
+        user=       cfg.mysql['user'],
+        password=   cfg.mysql['password'],
+        database=   cfg.mysql['database']
         )
-
+    
+    
     def create(self, Clinics):
         cursor = self.db.cursor()
         sql = "insert into Clinics (Clinic_ID, Clinic_Name, Day, Time, Consultant) values (%s,%s,%s,%s,%s)"

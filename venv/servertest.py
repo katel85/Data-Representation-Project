@@ -1,4 +1,4 @@
-from clinicDAO import clinicDao
+from clinicDAO import clinicDAO
 from appointmentDAO import appointmentDao
 
 Clinic4 = {
@@ -40,8 +40,8 @@ Appoint5 = {
 
 #returnValue = clinicDao.create(Clinic4) #test - code for server.py
 #returnValue = clinicDao.create(Clinic5) #test - code for server.py
-#returnValue = clinicDao.getAll()
-#print(returnValue)
+returnValue = clinicDAO.getAll()
+print(returnValue)
 #returnValue = clinicDao.findById(1)
 #print(returnValue)
 #returnValue = clinicDao.update(Clinic5)
