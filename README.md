@@ -45,11 +45,17 @@ The website currently will allow the user to create and delete both clinics and 
 
 
  **References**
+
 [1] Andrew Beatty Github Repository: https://github.com/andrewbeattycourseware/datarepresentation
+
 [2] Flask Tutorial: https://www.tutorialspoint.com
+
 [3] w3schools Tutorials:  https://www.w3schools.com/
+
 [5] Online Booking System With Python Flask (Step-By-Step)-https://code-boxx.com/python-online-booking/-Simple 
+
 [6] How to use Flask-Session in Python Flask ?-https://www.geeksforgeeks.org/how-to-use-flask-session-in-python-flask/?ref=rp-How to use Flask-Session in Python Flask ?
+
 [7] Creating a Login Page in Flask Using Sessions-https://www.youtube.com/watch?v=2Zz97NVbH0U
 
 
