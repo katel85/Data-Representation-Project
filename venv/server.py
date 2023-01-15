@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request, abort,render_template,redirect,session,g,url_for
 from clinicDAO import clinicDAO
 from appointmentDAO import appointmentDao
-import os
-from flask import send_from_directory
+
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -59,19 +58,19 @@ def profile():
 def index():
     return "hello"
 
-# Return all Clinics:
+# Return all Clinics: Tested using curl and postman
 @app.route('/Clinics')
 def getAll():
     return jsonify(clinicDAO.getAll())
 
 
-# Get by ID:
+# Get by ID: Tested using curl + postman
 @app.route('/Clinics/<Clinic_ID>')
 def findById(Clinic_ID):
     return jsonify(clinicDAO.findById(Clinic_ID))   
 
 
-# Create new Clinic:
+# Create new Clinic: Tested using curl + postman
 @app.route('/Clinics', methods=['POST'])
 def create():
     
@@ -89,8 +88,8 @@ def create():
     
 
 # Update the database:
-# Test:
-# 
+# Test:Tested using curl + postman. While this worked on both it did not seem to update the database correctly and no errors where encounted
+# not sure if it is an issue with the wamp server or code. 
 @app.route('/Clinics/<int:Clinic_ID>', methods=['PUT'])
 def update(Clinic_ID):
     foundClinic = clinicDAO.findById(Clinic_ID)
@@ -113,24 +112,26 @@ def update(Clinic_ID):
     clinicDAO.update(currentClinic)
     return jsonify(currentClinic)
         
+#Tested using curl + postman
 @app.route('/Clinics/<Clinic_ID>' , methods=['DELETE'])
 def delete(Clinic_ID):
     clinicDAO.delete(Clinic_ID)
     return jsonify({"done":True})
 
 
+#Tested using curl + postman
 @app.route('/Appointment')
 def getAll2():
     #print("in getall")
     return jsonify(appointmentDao.getAll())
 
-# Get by ID:
+# Get by ID: Tested using curl + postman
 @app.route('/Appointment/<Patient_PPS>')
 def findById2(Patient_PPS):
     return jsonify(appointmentDao.findById(Patient_PPS))   
 
 
-# Create new Clinic:
+# Create new Clinic:Tested using curl + postman
 @app.route('/Appointment', methods=['POST'])
 def create2():
     
@@ -147,7 +148,7 @@ def create2():
     return jsonify(appointmentDao.create(Appointment))
     
 
-# Update the database:
+# Update the database: Same issue with put request as above. Again the command worked in both postman and curl but did not update the database correctly.
 @app.route('/Appointment/<int:Patient_PPS>', methods=['PUT'])
 def update2(Patient_PPS):
     foundAppointment = appointmentDao.findById(Patient_PPS)
@@ -173,6 +174,7 @@ def update2(Patient_PPS):
     appointmentDao.update(currentAppointment)
     return jsonify(currentAppointment)
         
+#Tested using curl + postman
 @app.route('/Appointment/<Patient_PPS>' , methods=['DELETE'])
 def delete2(Patient_PPS):
     appointmentDao.delete(Patient_PPS)
